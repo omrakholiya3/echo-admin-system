@@ -1,6 +1,7 @@
 
 import { Menu, Bell, User } from "lucide-react";
 import { motion } from "framer-motion";
+import ColorPicker from './ColorPicker';
 
 interface HeaderProps {
   activeTab: string;
@@ -24,22 +25,24 @@ const Header = ({ activeTab, sidebarOpen, setSidebarOpen, isMobile }: HeaderProp
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-4 py-4 md:px-6">
-      <div className="flex items-center justify-between">
+    <header className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-200 px-4 py-4 md:px-6">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-4">
           {isMobile && (
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-white/50 rounded-lg transition-colors"
             >
               <Menu className="w-5 h-5 text-gray-600" />
             </motion.button>
           )}
           
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">{getPageTitle()}</h2>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {getPageTitle()}
+            </h2>
             <p className="text-sm text-gray-500">Manage your application</p>
           </div>
         </div>
@@ -48,21 +51,23 @@ const Header = ({ activeTab, sidebarOpen, setSidebarOpen, isMobile }: HeaderProp
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
+            className="p-2 hover:bg-white/50 rounded-lg transition-colors relative"
           >
             <Bell className="w-5 h-5 text-gray-600" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
           </motion.button>
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-white/50 rounded-lg transition-colors"
           >
             <User className="w-5 h-5 text-gray-600" />
           </motion.button>
         </div>
       </div>
+      
+      <ColorPicker />
     </header>
   );
 };

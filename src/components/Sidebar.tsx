@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion";
 import { Home, Users, Settings, X } from "lucide-react";
+import { useColorTheme } from "../contexts/ColorThemeContext";
 
 interface SidebarProps {
   activeTab: string;
@@ -11,6 +12,9 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ activeTab, setActiveTab, sidebarOpen, setSidebarOpen, isMobile }: SidebarProps) => {
+  const { getThemeColors } = useColorTheme();
+  const themeColors = getThemeColors();
+
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: Home },
     { id: "users", label: "Users", icon: Users },
@@ -32,17 +36,17 @@ const Sidebar = ({ activeTab, setActiveTab, sidebarOpen, setSidebarOpen, isMobil
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`
         ${isMobile ? 'fixed' : 'relative'} 
-        z-50 w-64 bg-white shadow-lg border-r border-gray-200 h-screen
+        z-50 w-64 bg-gradient-to-b ${themeColors.gradient} shadow-xl border-r border-white/20 h-screen text-white
       `}
     >
       <div className="flex flex-col h-full">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-800">Admin Panel</h1>
+        <div className="flex items-center justify-between p-6 border-b border-white/20">
+          <h1 className="text-xl font-bold">Admin Panel</h1>
           {isMobile && (
             <button
               onClick={() => setSidebarOpen(false)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -59,19 +63,19 @@ const Sidebar = ({ activeTab, setActiveTab, sidebarOpen, setSidebarOpen, isMobil
               return (
                 <li key={item.id}>
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, x: 5 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleMenuClick(item.id)}
                     className={`
                       w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left
                       transition-all duration-200 group
                       ${isActive
-                        ? 'bg-blue-50 text-blue-600 border border-blue-200'
-                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                        ? 'bg-white/20 text-white shadow-lg backdrop-blur-sm'
+                        : 'text-white/80 hover:bg-white/10 hover:text-white'
                       }
                     `}
                   >
-                    <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                    <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-white/60 group-hover:text-white/80'}`} />
                     <span className="font-medium">{item.label}</span>
                   </motion.button>
                 </li>
@@ -81,14 +85,14 @@ const Sidebar = ({ activeTab, setActiveTab, sidebarOpen, setSidebarOpen, isMobil
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200">
-          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-medium">A</span>
+        <div className="p-4 border-t border-white/20">
+          <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+              <span className="text-gray-800 text-sm font-medium">A</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">Admin User</p>
-              <p className="text-xs text-gray-500 truncate">admin@example.com</p>
+              <p className="text-sm font-medium text-white truncate">Admin User</p>
+              <p className="text-xs text-white/70 truncate">admin@example.com</p>
             </div>
           </div>
         </div>
