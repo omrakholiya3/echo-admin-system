@@ -42,19 +42,7 @@ const Settings = () => {
         },
       ],
     },
-    {
-      title: "System Settings",
-      icon: Database,
-      color: "green",
-      settings: [
-        {
-          label: "Auto Backup",
-          description: "Automatically backup data daily",
-          value: autoBackup,
-          onChange: setAutoBackup,
-        },
-      ],
-    },
+
   ];
 
   const Toggle = ({ value, onChange }: { value: boolean; onChange: (value: boolean) => void }) => (
